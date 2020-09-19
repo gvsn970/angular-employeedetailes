@@ -1,0 +1,28 @@
+<app-header></app-header>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Handle</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of allEmpData; let i=index;">
+            <th scope="row">{{i+1}}</th>
+            <td>{{data.name}}</td>
+            <td>{{data.email}}</td>
+            <td>@mdo</td>
+        </tr>
+    </tbody>
+    <tbody *ngIf="empData">
+        <tr>
+            <td></td>
+            <td>
+                <h4>No Data Found</h4>
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
