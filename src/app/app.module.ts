@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule ,HTTP_INTERCEPTORS} from '@angular/common/http'; 
 
 import { AppRoutingModule,routingComponets } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,7 @@ import { FooterComponent } from './footer/footer.component';
 import { EmpRegistrationComponent } from './emp-registration/emp-registration.component';
 import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { TokenInterceptorService } from './token-interceptor.service';
 
 
 
@@ -33,12 +34,13 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AppRoutingModule,
     EmplyoeeDashboardModule,
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
   
     
   ],
-  providers: [],
+  providers: [{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

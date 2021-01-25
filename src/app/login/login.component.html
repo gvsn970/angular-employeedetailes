@@ -1,41 +1,38 @@
 <app-header></app-header>
 <!-- Sing in  Form -->
-<section class="sign-in">
-    <div class="container">
-        <div class="signin-content">
-            <div class="signin-image">
-                <figure><img src="../../assets/signin-image.jpg" alt="sing up image"></figure>
-                <a routerLink="/registar" class="signup-image-link">Create an account</a>
-            </div>
-
-            <div class="signin-form">
-                <h2 class="form-title">Sign In</h2>
-                <form method="POST" class="register-form" id="login-form">
-                    <div class="form-group">
-                        <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                        <input type="text" name="your_name" id="your_name" placeholder="Your Name" />
-                    </div>
-                    <div class="form-group">
-                        <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                        <input type="password" name="your_pass" id="your_pass" placeholder="Password" />
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                        <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-                    </div>
-                    <div class="form-group form-button">
-                        <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
-                    </div>
-                </form>
-                <div class="social-login">
-                    <span class="social-label">Or login with</span>
-                    <ul class="socials">
-                        <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                        <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-                        <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
-                    </ul>
+<!-- Sign up form -->
+<div class="container login-container">
+    <div class="row">
+        <div class="col-md-6 login-form-1">
+            <h3>Login for Form 1</h3>
+            <form [formGroup]="loginForm" class="login-container" (ngSubmit)="login()">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Your Email *" formControlName="username"
+                        value="" />
+                    <p [ngClass]="{ 'has-error': isSubmitted && formControls.username.errors }"></p>
                 </div>
-            </div>
+                <div *ngIf="isSubmitted && formControls.username.errors" class="help-block">
+                    <div *ngIf="formControls.username.errors.required">Email is required</div>
+                </div>
+                <div class="form-group">
+
+                    <input type="password" class="form-control" placeholder="Your Password *" formControlName="password"
+                        value="" />
+                    <p [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+
+                    </p>
+                </div>
+                <div *ngIf="isSubmitted && formControls.password.errors" class="help-block">
+                    <div *ngIf="formControls.password.errors.required">Password is required</div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btnSubmit" value="Login" />
+                </div>
+                <div class="form-group">
+                    <a href="#" class="ForgetPwd">Forget Password?</a>
+                </div>
+            </form>
         </div>
+
     </div>
-</section>
+</div>

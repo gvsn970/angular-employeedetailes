@@ -5,20 +5,28 @@
     <!-- Links -->
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" routerLink="/registar" routerLinkActive="active">Registration</a>
+            <a class="nav-link" *ngIf="!service.loggedIn()" routerLink="/registar"
+                routerLinkActive="active">Registration</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+            <a class="nav-link" *ngIf="!service.loggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" style="cursor:pointer" *ngIf="service.loggedIn()" 
+            (click)="service.logoutUser()"
+                routerLinkActive="active">Logout</a>
         </li>
 
         <!-- Dropdown -->
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-         View Detailes
-        </a>
+                View Detailes
+            </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" routerLink="/employee" routerLinkActive="active">Employees List</a>
-                <a class="dropdown-item" routerLink="/depart" routerLinkActive="active">Departments List</a>
+                <a class="dropdown-item" *ngIf="service.loggedIn()" routerLink="/employee"
+                    routerLinkActive="active">Employees List</a>
+                <a class="dropdown-item" *ngIf="service.loggedIn()" routerLink="/depart"
+                    routerLinkActive="active">Departments List</a>
 
             </div>
         </li>

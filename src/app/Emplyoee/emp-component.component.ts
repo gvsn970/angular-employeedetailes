@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AllservicesService} from '../allservices.service';
+import { AllservicesService } from '../allservices.service';
 
 @Component({
   selector: 'app-emp-component',
@@ -8,31 +8,26 @@ import {AllservicesService} from '../allservices.service';
 })
 export class EmpComponentComponent implements OnInit {
 
-  constructor(private service : AllservicesService) { }
-
+  constructor(private service: AllservicesService) { }
  
+  token = localStorage.getItem("token")
   ngOnInit() {
-    this.getAllEmp();
-    
+    this.getAllEmp(this.token);
+
   }
-  public empData:boolean=false;
-  public allEmpData:any[]=[];
-  getAllEmp(){
-    this.service.getAll('/emplyoee/getallemp').subscribe(
-      (res)=>{
-        if(res['statusCode'] == 1){
-          this.allEmpData=res['list'];
-          console.log(this.allEmpData);
-          this.empData=false;
-          
-        }else{
-          console.log(this.allEmpData);
-          this.empData=true;
-        }
-      },(error)=>{
+  public empData: boolean = false;
+  public allEmpData: any = [];
+  getAllEmp(token) {
+    this.service.getEmpyoless('employees', token).subscribe(
+      (res) => {
+       
+          this.allEmpData = res;
+          console.log(this.allEmpData)
+        
+      }, (error) => {
         console.log(error)
-      },()=>{
-        this.empData=false;
+      }, () => {
+        this.empData = false;
       }
     );
   }

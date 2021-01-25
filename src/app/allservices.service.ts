@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable  } from '@angular/core';
 import { HttpClient,HttpHeaders} from '@angular/common/http';
 import {environment} from '../environments/environment';
-
+import { Router } from '@angular/router'
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +11,8 @@ export class AllservicesService {
   public requestOptions:any;
   public url:String=environment.url;
 
-  constructor(private http : HttpClient) {
+  constructor(private http : HttpClient,private _router:Router) {
+
     this.url = environment.url;
     this.headerDist = { 
       "Accept": "application/json"
@@ -25,6 +26,7 @@ export class AllservicesService {
   
   getAll(url){
     try{
+      
       return this.http.get(this.url+url);
     }catch(e){
       console.log(e +" Exception")
@@ -47,7 +49,31 @@ export class AllservicesService {
       console.log(e, 'get method')
     }
   }
-  
+
+  getEmpyoless(url,token){
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get(this.url+url);
+  }
+  login(url,data){
+    return this.http.post<string>(this.url + url, data,{  responseType: 'text' as 'json' })
+  }
+
+
+  logoutUser() {
+    localStorage.removeItem('token')
+    this._router.navigate(['/home'])
+  }
+
+  getToken() {
+    return localStorage.getItem('token')
+  }
+
+  loggedIn() {
+    return !!localStorage.getItem('token')    
+  }
+
+
   deleteData(url) {
     try {
       return this.http.delete(this.url + url)
